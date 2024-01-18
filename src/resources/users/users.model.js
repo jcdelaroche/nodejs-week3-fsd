@@ -6,7 +6,8 @@ const userSchema = new mongoose.Schema({
     email: String,
     password: String,
     role: { type: String, enum: ['admin', 'merchant', 'user'] },
-    shops: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Shop' }]
+    shops: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Shop' }],
+    favs: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Shop' }]
 });
 
 const User = mongoose.model('User', userSchema);

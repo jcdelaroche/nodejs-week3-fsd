@@ -7,6 +7,7 @@ const authentification = (req, res, next) => {
             return res.status(401).send({ ok: false, error: 'Invalid token' });
         }
         req.user = decoded;
+        console.log(req.user);
         next();
     });
 };

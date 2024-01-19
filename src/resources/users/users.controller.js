@@ -54,9 +54,7 @@ module.exports = {
       expiresIn: "1d",
     });
 
-    res.header("Authorization", `Bearer ${token}`);
-    req.session.token = token;
-    return res.json({ ok: true, data: { token } });
+    return res.json({ ok: true, data: { token, user } });
   },
 
   async addFav(req, res) {

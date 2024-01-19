@@ -13,9 +13,8 @@ const { get } = require("mongoose");
 
 const router = express.Router();
 router.use(authentification);
-router.route("").get(getShops);
+router.route("").get(getShops).post(validateShop, createShop);
 router.route("/:id").get(getShop);
-router.route("").post(validateShop, createShop);
 router.route("/promotions/:id").post(validatePromotion, addPromotion).get(getPromotionsByShop);
 router.route("/promotions").get(getPromotionsByName);
 router.route("/promotions/search/:category").get(getPromotionsByCategory);

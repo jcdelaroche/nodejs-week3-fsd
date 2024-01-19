@@ -1,4 +1,5 @@
 const shopModel = require('./shops.model');
+const userModel = require('../users/users.model');
 const {ApiKeyManager} = require('@esri/arcgis-rest-request');
 const {geocode} = require('@esri/arcgis-rest-geocoding');
 
@@ -26,6 +27,15 @@ module.exports = {
     },
 
     async createShop(req, res) {
+        if (req.body.coordinates) {
+            try {
+                const shop = await shopModel.create({...req.body, owner: req.user.id});
+                await userModel.findByIdAndUpdate(req.user.id, {$push: {shops: shop._id}});
+                return res.status(201).json({ok: true, data: shop});
+            } catch (err) {
+                return res.status(500).json({ok: false, data: err})
+            }
+        }
         const {address, postalCode, country} = req.body;
         let coordinates 
 
@@ -39,7 +49,8 @@ module.exports = {
           });
 
         try {
-            const shop = await shopModel.create({...req.body, coordinates: coordinates});
+            const shop = await shopModel.create({...req.body, coordinates, owner: req.user.id});
+            await userModel.findByIdAndUpdate(req.user.id, {$push: {shops: shop._id}});
             return res.status(201).json({ok: true, data: shop});
         } catch (err) {
             return res.status(500).json({ok: false, data: err})

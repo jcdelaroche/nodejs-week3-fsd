@@ -4,12 +4,11 @@ const validateShop = (req, res, next) => {
     const schema = Joi.object({
         name: Joi.string().required(),
         description: Joi.string().required(),
-        owner: Joi.string().required(),
         promotions: Joi.array().required(),
-        adress: Joi.string().required(),
-        postalCode: Joi.number().min(5).required(),
-        country: Joi.string().required(),
-
+        adress: Joi.string().optional(),
+        postalCode: Joi.number().min(5).optional(),
+        country: Joi.string().optional(),
+        coordinates: Joi.object().optional(),
     });
     const { error } = schema.validate(req.body);
     if (error) {

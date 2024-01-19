@@ -7,6 +7,9 @@ const {
   addFav,
   deleteUser,
   deleteFav,
+  getFavs,
+  getUser,
+  updateUser
 } = require("./users.controller");
 const { authentification } = require("../middlewares/authentification");
 
@@ -16,7 +19,6 @@ const router = express.Router();
 router.route("").get(authentification, getAllUsers);
 router.route("/signup").post(validateUser, signUp);
 router.route("/login").post(logIn);
-router.route("/addfav").post(authentification, addFav);
-router.route("/delete").delete(authentification, deleteUser);
-router.route("/deletefav").delete(authentification, deleteFav);
+router.route("/fav").post(authentification, addFav).delete(authentification, deleteFav).get(authentification, getFavs);
+router.route("/user").delete(authentification, deleteUser).get(authentification, getUser).put(authentification, updateUser);
 module.exports = router;

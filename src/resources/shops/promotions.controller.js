@@ -14,7 +14,7 @@ module.exports = {
         }
     },
 
-    async getPromotion(req, res) {
+    async getPromotionsByName(req, res) {
         const schema = joi.object({
             name: joi.string()
         });
@@ -31,7 +31,7 @@ module.exports = {
         }
     },
 
-    getByCategory(req, res) {
+    getPromotionsByCategory(req, res) {
         const schema = joi.object({
             category: joi.string().valid(
                 'food',
@@ -48,6 +48,16 @@ module.exports = {
         try {
             const promotion = shopModel.find({'promotions.category': category});
             return res.status(200).json({ok: true, data: promotion});
+        } catch (err) {
+            return res.status(500).json({ok: false, data: err})
+        }
+    },
+
+    async getPromotionsByShop(req, res) {
+        const {id} = req.params;
+        try {
+            const shop = await shopModel.findById(id);
+            return res.status(200).json({ok: true, data: shop.promotions});
         } catch (err) {
             return res.status(500).json({ok: false, data: err})
         }

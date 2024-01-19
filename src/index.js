@@ -1,5 +1,4 @@
 const express = require('express');
-const cookieSession = require('cookie-session');
 const { initializeRoutes } = require('./utils/initializeRoutes');
 
 require('dotenv').config();

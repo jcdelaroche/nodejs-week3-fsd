@@ -1,5 +1,6 @@
 const usersRoute = require('../resources/users/users.route')
 const shopsRoute = require('../resources/shops/shops.route')
+const adminRoute = require('../resources/admin/admin.route')
 const express = require('express')
 const cookieSession = require('cookie-session');
 const cors = require('cors')

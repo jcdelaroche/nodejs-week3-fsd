@@ -24,8 +24,9 @@ module.exports = {
         }
         const {name} = req.query;
         try {
-            const promotion = await shopModel.find({'promotions.name': name});
-            return res.status(200).json({ok: true, data: promotion});
+            const shops = await shopModel.find();
+            const promotions = shops.map(shop => shop.promotions.filter(promotion => promotion.name.includes(name)));
+            return res.status(200).json({ok: true, data: promotions});
         } catch (err) {
             return res.status(500).json({ok: false, data: err})
         }

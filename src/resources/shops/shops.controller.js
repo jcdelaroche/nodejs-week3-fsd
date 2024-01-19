@@ -27,6 +27,14 @@ module.exports = {
     },
 
     async createShop(req, res) {
+        await userModel.findById(req.user.id, (err, user) => {
+            if (err) {
+                return res.status(500).json({ok: false, data: err})
+            }
+            if (user.role !== 'merchant') {
+                return res.status(403).json({ok: false, data: 'You are not allowed to create a shop'})
+            }
+        });
         if (req.body.coordinates) {
             try {
                 const shop = await shopModel.create({...req.body, owner: req.user.id});

@@ -9,7 +9,6 @@ const {
   getPromotionsByShop,
 } = require("./promotions.controller");
 const { authentification } = require("../middlewares/authentification");
-const { get } = require("mongoose");
 
 const router = express.Router();
 router.use(authentification);

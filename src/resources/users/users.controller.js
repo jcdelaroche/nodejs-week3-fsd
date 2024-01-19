@@ -80,7 +80,7 @@ module.exports = {
   },
 
   async deleteUser(req, res) {
-    const { id } = req.params;
+    const { id } = req.user;
     try {
       const user = await userModel.findByIdAndDelete(id);
       return res.status(200).json({ ok: true, data: user });
